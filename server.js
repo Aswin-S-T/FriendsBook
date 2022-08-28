@@ -11,7 +11,8 @@ db.connect()
 // Middlewares
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
-app.use(cors())
+// app.use(cors())
+app.use(cors({ credentials: true }));
 
 // Router configuration
 app.use('/api/v1/user',userRouter)
