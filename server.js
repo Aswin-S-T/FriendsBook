@@ -16,8 +16,9 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 var corsOptions = {
   origin: "https://friendsbook-socialmedia.herokuapp.com",
   methods: [ "GET", "POST","DELETE" ],
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
+app.use(corsOptions)
 
 // Router configuration
 app.use('/api/v1/user',userRouter)
