@@ -8,15 +8,20 @@ const db = require('./config/db')
 const userRouter = require('./routes/userRouter')
 db.connect()
 
-var corsOptions = {
-  origin: "*",
-  methods: ["GET", "POST","DELETE"],
-};
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
+// var corsOptions = {
+//   origin: "*",
+//   methods: ["GET", "POST","DELETE"],
+// };
 
 // Middlewares
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
-app.use(corsOptions);
+app.use(cors());
 // app.use(cors({ credentials: true }));
 
 
