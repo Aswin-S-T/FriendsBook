@@ -37,7 +37,7 @@ userRouter.post("/register", async (req, res) => {
     { user_id: user._id, email },
     process.env.TOKEN_KEY || "something secret",
     {
-      expiresIn: "2h",
+      expiresIn: "12h",
     }
   );
   user.token = token;
@@ -57,7 +57,7 @@ userRouter.post("/login", async (req, res) => {
         { user_id: user._id, email },
         process.env.TOKEN_KEY || "something secret",
         {
-          expiresIn: "5h",
+          expiresIn: "12h",
         }
       );
       user.token = token;
@@ -165,7 +165,7 @@ userRouter.get('/get-my-post/:id',async(req,res)=>{
   let userId = req.params.id
   let response = {}
   try {
-    let user = await User.find({_id : userId})
+    let user = await User.find({ _id: userId }).sort({ timestamps: -1 });
     // console.log('USER : ',user)
     let myPost = await Post.find({userId : userId})
     response.success = true
@@ -229,5 +229,7 @@ userRouter.post('/give-like/:postId',auth,async(req,res)=>{
  
   res.send(updatePost);
 })
+
+userRouter.get('/user/:userId',)
 
 module.exports = userRouter;
