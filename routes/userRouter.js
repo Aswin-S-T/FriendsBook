@@ -165,7 +165,7 @@ userRouter.get('/get-my-post/:id',async(req,res)=>{
   let userId = req.params.id
   let response = {}
   try {
-    let user = await User.find({ _id: userId }).sort({ timestamps: -1 });
+    let user = await User.find({ _id: userId }).sort({ updatedAt: -1 });
     // console.log('USER : ',user)
     let myPost = await Post.find({userId : userId})
     response.success = true
