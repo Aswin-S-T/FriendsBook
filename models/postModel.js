@@ -9,7 +9,6 @@ const postSchema = new mongoose.Schema(
     comment: [],
     share: { type: Number, default: 0 },
     likeCount: { type: Number, default: 0 },
-    time: { default: new Date().getMilliseconds() },
   },
   {
     timestamps: true,
