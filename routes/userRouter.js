@@ -232,7 +232,7 @@ userRouter.post('/give-like/:postId',auth,async(req,res)=>{
 
 userRouter.get('/get-user/:userId',async(req,res)=>{
   let userId = req.params.userId
-  let user = await User.findOne({_id : userId})
+  let user = await User.find({_id : userId})
   res.send(user)
 })
 
