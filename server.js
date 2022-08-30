@@ -62,6 +62,6 @@ app.get('/',(req,res)=>{
     res.send('NOdejs is working')
 })
 
-app.listen(port,()=>{
+server.listen(port,()=>{
     console.log(`Server is running on port ${port}`)
 })
