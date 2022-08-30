@@ -230,6 +230,10 @@ userRouter.post('/give-like/:postId',auth,async(req,res)=>{
   res.send(updatePost);
 })
 
-userRouter.get('/user/:userId',)
+userRouter.get('/get-user/:userId',async(req,res)=>{
+  let userId = req.params.userId
+  let user = await User.findOne({_id : userId})
+  res.send(user)
+})
 
 module.exports = userRouter;
