@@ -42,10 +42,11 @@ app.use('/api/v1/user',userRouter)
 const CHAT_BOT = 'ChatBot'; // Add this
 
 io.on("connection", (socket) => {
-  console.log(`User connected ${socket.id}`);
+  console.log(`User Connected: ${socket.id}`);
+
   socket.on("join_room", (data) => {
     socket.join(data);
-    console.log(`User with ID: ${socket.id} joined room: ${data.room}`);
+    console.log(`User with ID: ${socket.id} joined room: ${data}`);
   });
 
   socket.on("send_message", (data) => {
@@ -55,7 +56,21 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("User Disconnected", socket.id);
   });
-  // We can write our socket event listeners in here...
+
+  // Video Chat
+  socket.on("disconnect", () => {
+    socket.broadcast.emit("callEnded");
+  });
+
+  socket.on("callUser", ({ userToCall, signalData, from, name }) => {
+    io.to(userToCall).emit("callUser", { signal: signalData, from, name });
+  });
+
+  socket.on("answerCall", (data) => {
+    io.to(data.to).emit("callAccepted", data.signal);
+  });
+  // End video chat
+
 });
 
 app.get('/',(req,res)=>{
